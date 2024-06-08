@@ -3,11 +3,40 @@ from scipy.spatial.distance import euclidean
 from itertools import permutations
 
 class RouteOptimizer:
-    def optimize(self, origin, destiny, adresses):
+    def optimize(
+        self,
+        origin: tuple, 
+        destiny: tuple,
+        adresses: list[tuple]
+        ):
+        """This is the main method of the optimiser.
+
+        Args:
+            origin (tuple): Starting dot of the route
+            destiny (tuple): Ending dot of the route
+            adresses (list[tuple]): Dots that must be visited in the route
+        """
         route = self.get_best_route(origin, destiny, adresses)
         self.show_results(route)
 
-    def get_best_route(self, origin, destiny, adresses):
+    def get_best_route(
+        self,
+        origin: tuple,
+        destiny: tuple,
+        adresses: list[tuple]
+        ) -> list[tuple]:
+        """This method obtains the best possible route, a.k.a. the route with minimal total
+        distance.
+
+        Args:
+            origin (tuple): Starting dot of the route
+            destiny (tuple): Ending dot of the route
+            adresses (list[tuple]): Dots that must be visited in the route
+
+        Returns:
+            list[tuple]: Complete route with minimal total distance from origin to destiny
+        """
+
         best_distance = float('inf')
         best_route = None
 
@@ -21,7 +50,15 @@ class RouteOptimizer:
         
         return best_route
 
-    def calculate_route_distance(self, route):
+    def calculate_route_distance(self, route: list[tuple]) -> float:
+        """This method calculates distance from origin to destiny given complete route
+
+        Args:
+            route (list[tuple]): Complete route, made by origin, adresses and destiny
+
+        Returns:
+            float: Distance of the given route
+        """
         distance = 0
         route_size = len(route)
 
@@ -31,7 +68,13 @@ class RouteOptimizer:
         
         return distance
 
-    def show_results(self, route):
+    def show_results(self, route: list[tuple]):
+        """This method shows results in a graph containing all dots: origin, adresses and destiny.
+        It also draws arrows indicating the path selected for the optimal result.
+
+        Args:
+            route (list[tuple]): Colection of dots that the graph will plot
+        """
         route_size = len(route)
         travelled_distance = 0
 
